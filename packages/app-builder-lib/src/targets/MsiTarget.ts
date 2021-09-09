@@ -156,7 +156,7 @@ export default class MsiTarget extends Target {
     const compression = this.packager.compression
     const options = this.options
     const iconPath = await this.packager.getIconPath()
-    const iconId = `${appInfo.productFilename}Icon.exe`
+    const iconId = `${appInfo.productFilename}Icon.exe`.replace(/\s/g, "")
     return (await projectTemplate.value)({
       ...commonOptions,
       isCreateDesktopShortcut: commonOptions.isCreateDesktopShortcut !== DesktopShortcutCreationPolicy.NEVER,
@@ -223,7 +223,7 @@ export default class MsiTarget extends Target {
       if (isMainExecutable && (isCreateDesktopShortcut || commonOptions.isCreateStartMenuShortcut)) {
         result += `>\n`
         const shortcutName = commonOptions.shortcutName
-        const iconId = `${appInfo.productFilename}Icon.exe`
+        const iconId = `${appInfo.productFilename}Icon.exe`.replace(/\s/g, "")
         if (isCreateDesktopShortcut) {
           result += `${fileSpace}  <Shortcut Id="desktopShortcut" Directory="DesktopFolder" Name="${shortcutName}" WorkingDirectory="APPLICATIONFOLDER" Advertise="yes" Icon="${iconId}"/>\n`
         }
